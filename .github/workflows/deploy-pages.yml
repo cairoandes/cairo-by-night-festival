@@ -33,6 +33,7 @@ jobs:
           from pathlib import Path
           root = Path("_site")
           prefix = "/cairo-by-night-festival/"
+          routes = ["/team24/", "/prices/", "/competition-rules/", "/schedule/", "/contact-us/", "/registration/"]
           for path in root.rglob("*"):
               if path.suffix not in {".html", ".js", ".css"}:
                   continue
@@ -40,6 +41,11 @@ jobs:
               text = text.replace('href="/', f'href="{prefix}')
               text = text.replace('src="/', f'src="{prefix}')
               text = text.replace("url('/assets/", f"url('{prefix}assets/")
+              for route in routes:
+                  target = prefix + route.lstrip("/")
+                  text = text.replace(f"'{route}'", f"'{target}'")
+                  text = text.replace(f'"{route}"', f'"{target}"')
+              text = text.replace("['home', 'HOME', '/']", f"['home', 'HOME', '{prefix}']")
               path.write_text(text)
           PY
       - name: Configure Pages
