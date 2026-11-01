@@ -46,8 +46,8 @@ jobs:
                   text = text.replace(f"'{route}'", f"'{target}'")
                   text = text.replace(f'"{route}"', f'"{target}"')
               text = text.replace("['home', 'HOME', '/']", f"['home', 'HOME', '{prefix}']")
-              text = text.replace("app.js?v=23", "app.js?v=25")
-              text = text.replace("styles.css?v=41", "styles.css?v=43")
+              text = text.replace("app.js?v=23", "app.js?v=26")
+              text = text.replace("styles.css?v=41", "styles.css?v=44")
               path.write_text(text)
           PY
       - name: Configure Pages
