@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#07090f">
+  <title>Manager — Cairo By Night</title>
+  <link rel="stylesheet" href="/assets/manager.css?v=1">
+</head>
+<body>
+  <div class="manager-login" data-login-screen>
+    <div class="manager-login-art" aria-hidden="true"><span>CBN</span></div>
+    <main class="manager-login-card">
+      <span class="manager-kicker">Private administration</span>
+      <h1>Cairo By Night<br><em>Manager</em></h1>
+      <p>Sign in with the account invited by the festival administrator.</p>
+      <form data-login-form>
+        <label>Email<input type="email" name="email" autocomplete="username" required></label>
+        <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+        <p class="manager-error" data-login-error hidden></p>
+        <button type="submit">Enter manager <span>↗</span></button>
+      </form>
+    </main>
+  </div>
+
+  <div class="manager-app" data-manager-app hidden>
+    <aside class="manager-sidebar">
+      <a class="manager-brand" href="/" target="_blank"><strong>Cairo By Night</strong><span>Festival Manager</span></a>
+      <nav aria-label="Manager sections">
+        <button class="active" type="button" data-view="team"><span>01</span>Team</button>
+        <button type="button" data-view="home"><span>02</span>Home</button>
+        <button type="button" data-view="prices"><span>03</span>Prices</button>
+        <button type="button" data-view="rules"><span>04</span>Competition Rules</button>
+        <button type="button" data-view="schedule"><span>05</span>Schedule</button>
+        <button type="button" data-view="registration"><span>06</span>Registration</button>
+        <button type="button" data-view="contact"><span>07</span>Contact</button>
+      </nav>
+      <footer><span data-user-email></span><button type="button" data-logout>Sign out</button></footer>
+    </aside>
+
+    <main class="manager-main">
+      <header class="manager-topbar">
+        <div><span data-view-label>Team management</span><strong data-save-state>All changes saved</strong></div>
+        <div class="manager-top-actions"><a href="/" target="_blank">View website</a><button type="button" data-save>Publish changes</button></div>
+      </header>
+
+      <section class="manager-view manager-team-view" data-panel="team">
+        <header class="manager-heading"><div><span>Artists & instructors</span><h2>Manage the<br><em>team.</em></h2></div><p>Add a teacher, upload a portrait, update information, reorder the list or remove an entry. Images are stored permanently in Netlify Blobs.</p></header>
+        <div class="team-manager-toolbar"><strong data-team-count>0 artists</strong><button type="button" data-add-artist>+ Add master teacher</button></div>
+        <div class="team-manager-list" data-team-list></div>
+      </section>
+
+      <section class="manager-view manager-page-view" data-panel="page" hidden>
+        <header class="manager-heading"><div><span data-page-kicker>Visual page editor</span><h2>Edit the page<br><em>directly.</em></h2></div><p>Click any highlighted text inside the page preview and type. Publish when you are ready; every edit is stored and applied to the public website.</p></header>
+        <div class="visual-editor-toolbar"><div><span class="editor-live-dot"></span><strong data-editor-page>Home</strong></div><p>Editable text is outlined in gold.</p><button type="button" data-refresh-preview>Refresh preview</button></div>
+        <div class="visual-editor-frame"><iframe title="Live page editor" data-page-preview></iframe></div>
+      </section>
+    </main>
+  </div>
+
+  <template id="artist-template">
+    <article class="artist-manager-card">
+      <div class="artist-drag" aria-label="Drag to reorder">⋮⋮</div>
+      <div class="artist-photo-control">
+        <img alt="Artist preview" data-artist-preview>
+        <label><input type="file" accept="image/jpeg,image/png,image/webp,image/avif" data-artist-file><span>Upload portrait</span></label>
+        <small>JPG, PNG, WEBP or AVIF · max 8 MB</small>
+      </div>
+      <div class="artist-fields">
+        <label>Display name<input type="text" data-artist-field="name" required></label>
+        <div class="artist-fields-row"><label>Role<input type="text" data-artist-field="role"></label><label>Country / location<input type="text" data-artist-field="location"></label></div>
+        <input type="hidden" data-artist-field="imageUrl">
+      </div>
+      <div class="artist-card-actions"><button type="button" data-move="up" aria-label="Move up">↑</button><button type="button" data-move="down" aria-label="Move down">↓</button><button type="button" data-remove-artist>Remove</button></div>
+    </article>
+  </template>
+
+  <div class="manager-toast" data-toast role="status" aria-live="polite"></div>
+  <script src="/assets/manager.js?v=1" defer></script>
+</body>
+</html>

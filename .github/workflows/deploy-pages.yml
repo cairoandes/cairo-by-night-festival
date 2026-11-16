@@ -23,10 +23,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Unpack site
+      - name: Prepare site
         run: |
           mkdir -p _site
-          unzip -q cairo-by-night-site-20261031.zip -d _site
+          rsync -a \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_site' \
+            --exclude '*.zip' \
+            ./ _site/
       - name: Prepare project path
         run: |
           python3 - <<'PY'
@@ -46,8 +51,6 @@ jobs:
                   text = text.replace(f"'{route}'", f"'{target}'")
                   text = text.replace(f'"{route}"', f'"{target}"')
               text = text.replace("['home', 'HOME', '/']", f"['home', 'HOME', '{prefix}']")
-              text = text.replace("app.js?v=23", "app.js?v=26")
-              text = text.replace("styles.css?v=41", "styles.css?v=44")
               path.write_text(text)
           PY
       - name: Configure Pages
