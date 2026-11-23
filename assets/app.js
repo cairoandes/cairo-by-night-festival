@@ -280,15 +280,19 @@ const registrationForm = () => `<section class="content-section registration-for
         <div class="registration-fields two-columns"><label><span>Email address</span><input type="email" name="email" autocomplete="email" required></label><label><span>Mobile number <i>include country code</i></span><input type="tel" name="Mobile number" autocomplete="tel" required></label></div>
       </fieldset>
 
-      <fieldset class="registration-step"><legend><span>02</span><strong>Accommodation request</strong></legend>
-        <p class="registration-step-note">Enter the dates you personally require. All stays are subject to hotel availability and confirmation.</p>
-        <div class="registration-fields two-columns"><label><span>Check-in date</span><input type="date" name="Check-in date" required></label><label><span>Check-out date</span><input type="date" name="Check-out date" required></label></div>
-        <div class="registration-choice-group"><span>Requested accommodation duration</span><div class="registration-options registration-stay-options">${registrationStayOption(5, '5 nights', true)}${registrationStayOption(6, '6 nights')}${registrationStayOption(7, '7 nights')}${registrationStayOption(8, '8 nights')}${registrationStayOption('other', 'Other duration')}</div></div>
-        <div class="registration-fields" data-other-nights hidden><label><span>Number of nights requested</span><input type="number" name="Other number of nights" min="1" max="30"></label></div>
-        <div class="registration-choice-group"><span>Room type</span><div class="registration-options four-options">${registrationOption('radio', 'Room type', 'Single', 'Single', true)}${registrationOption('radio', 'Room type', 'Double', 'Double')}${registrationOption('radio', 'Room type', 'Triple room', 'Triple room')}${registrationOption('radio', 'Room type', 'Junior suite', 'Junior suite')}</div></div>
+      <fieldset class="registration-step"><legend><span>02</span><strong>Festival pass</strong></legend>
+        <div class="registration-choice-group"><span>Choose your festival package</span><div class="registration-options festival-pass-options">${registrationOption('radio', 'Festival pass', 'Festival package with hotel', '<strong>Festival package with hotel</strong> Accommodation, meals, workshops and parties. Exact total depends on stay and room type.', true)}${registrationOption('radio', 'Festival pass', 'Full Pass without hotel', '<strong>Full Pass without hotel</strong> Access to all workshops · accommodation not included <small class="registration-option-price">€580</small>')}</div></div>
+        <p class="registration-selection-status" data-pass-status aria-live="polite">Select a package to continue.</p>
+        <div data-hotel-details>
+          <p class="registration-step-note">Enter the dates you personally require. All stays are subject to hotel availability and confirmation.</p>
+          <div class="registration-fields two-columns"><label><span>Check-in date</span><input type="date" name="Check-in date" required></label><label><span>Check-out date</span><input type="date" name="Check-out date" required></label></div>
+          <div class="registration-choice-group"><span>Requested accommodation duration</span><div class="registration-options registration-stay-options">${registrationStayOption(5, '5 nights', true)}${registrationStayOption(6, '6 nights')}${registrationStayOption(7, '7 nights')}${registrationStayOption(8, '8 nights')}${registrationStayOption('other', 'Other duration')}</div></div>
+          <div class="registration-fields" data-other-nights hidden><label><span>Number of nights requested</span><input type="number" name="Other number of nights" min="1" max="30"></label></div>
+          <div class="registration-choice-group"><span>Room type</span><div class="registration-options four-options">${registrationOption('radio', 'Room type', 'Single', 'Single', true)}${registrationOption('radio', 'Room type', 'Double', 'Double')}${registrationOption('radio', 'Room type', 'Triple room', 'Triple room')}${registrationOption('radio', 'Room type', 'Junior suite', 'Junior suite')}</div></div>
+        </div>
       </fieldset>
 
-      <fieldset class="registration-step"><legend><span>03</span><strong>Room sharing details</strong></legend>
+      <fieldset class="registration-step" data-hotel-details><legend><span>03</span><strong>Room sharing details</strong></legend>
         <div class="registration-choice-group"><span>Room sharing</span><div class="registration-options">${registrationOption('radio', 'Room sharing', 'I will share with a person of my choice', 'I will share with a person of my choice', true)}${registrationOption('radio', 'Room sharing', 'Please try to match me with a roommate', 'Please try to match me with a roommate')}${registrationOption('radio', 'Room sharing', 'I am not sharing a room', 'I am not sharing a room')}</div></div>
         <div class="registration-fields"><label><span>Roommate name <i>if known</i></span><input type="text" name="Roommate name"></label></div>
         <div class="registration-fields two-columns"><label><span>Roommate check-in date <i>if known</i></span><input type="date" name="Roommate check-in date"></label><label><span>Roommate check-out date <i>if known</i></span><input type="date" name="Roommate check-out date"></label></div>
@@ -297,7 +301,7 @@ const registrationForm = () => `<section class="content-section registration-for
 
       <fieldset class="registration-step"><legend><span>04</span><strong>Gala performances</strong></legend>
         <div class="registration-choice-group"><span>Gala participation</span><div class="registration-options">${registrationOption('radio', 'Gala participation', 'I would like to perform in a gala show', 'I would like to perform in a gala show', true)}${registrationOption('radio', 'Gala participation', 'I do not plan to perform', 'I do not plan to perform')}</div></div>
-        <div class="registration-choice-group"><span>First gala show format</span><div class="registration-options">${registrationOption('checkbox', 'Performance format', 'Live band', 'Live band <small class="registration-option-price">€45</small>')}${registrationOption('checkbox', 'Performance format', 'CD / recorded music', 'CD / recorded music <small class="registration-option-price">€0</small>')}</div></div>
+        <div class="registration-choice-group"><span>First gala show format</span><div class="registration-options">${registrationOption('checkbox', 'Performance format', 'Live band', 'Live band <small class="registration-option-price">€45</small>')}${registrationOption('checkbox', 'Performance format', 'CD / recorded music', 'CD / recorded music <small class="registration-option-price" data-first-cd-price>€0 · included with hotel package</small>')}</div></div>
         <div class="registration-choice-group"><span>For the first performance, I will start</span><div class="registration-options">${registrationOption('radio', 'First performance start', 'On stage', 'On stage — I am on stage when the music starts')}${registrationOption('radio', 'First performance start', 'Off stage', 'Off stage — music starts before I enter')}</div></div>
         <div class="registration-choice-group"><span>Second gala show <i>if available</i></span><div class="registration-options">${registrationOption('checkbox', 'Additional performance', 'Additional live band performance', 'Live band <small class="registration-option-price">€45</small>')}${registrationOption('checkbox', 'Additional performance', 'Additional CD performance', 'CD / recorded music <small class="registration-option-price">€45</small>')}</div></div>
         <div class="registration-choice-group"><span>For the additional performance, I will start</span><div class="registration-options">${registrationOption('radio', 'Additional performance start', 'On stage', 'On stage')}${registrationOption('radio', 'Additional performance start', 'Off stage', 'Off stage')}</div></div>
@@ -329,7 +333,7 @@ const registrationForm = () => `<section class="content-section registration-for
         <p>I confirm that the information in this form is accurate. I understand that package, room and participation requests are subject to availability and confirmation, and that separate hotel or transport provider terms apply to services provided by them.</p>
         ${registrationOption('checkbox', 'Participant confirmation', 'Confirmed', 'I confirm and accept the statement above.', true)}
         <div class="registration-fields three-columns"><label><span>Participant full name</span><input type="text" name="Participant full name" autocomplete="name" required></label><label><span>Signature <i>type full name</i></span><input type="text" name="Signature" required></label><label><span>Date</span><input type="date" name="Confirmation date" required></label></div>
-        <section class="registration-cost-summary" data-cost-summary aria-live="polite"><header><div><span>Estimated booking total</span><h3>Your selections</h3></div><strong data-cost-total>€0</strong></header><div data-cost-lines><p>Select accommodation and participation options to calculate the current published costs.</p></div><small>Accommodation includes the €400 non-refundable deposit. Transfers are booked and paid directly to the provider and are not included. All requests remain subject to availability and festival confirmation.</small></section>
+        <section class="registration-cost-summary" data-cost-summary aria-live="polite"><header><div><span>Estimated booking total</span><h3>Your selections</h3></div><strong data-cost-total>€0</strong></header><div data-cost-lines><p>Select your festival pass and participation options to calculate the current published costs.</p></div><small>Hotel packages include the €400 non-refundable deposit. The €580 Full Pass does not include accommodation. Transfers are booked and paid directly to the provider. All requests remain subject to availability and festival confirmation.</small></section>
         <input type="hidden" name="Estimated booking total" data-cost-total-input value="€0">
         <input type="hidden" name="Estimated cost breakdown" data-cost-breakdown-input value="No priced selections">
       </fieldset>
@@ -469,7 +473,7 @@ const renderers = {
       <div class="pricing-shell">
         <div class="pricing-heading reveal">
           <div><span class="pricing-overline">August 3—9 · Serres, Greece</span><h2>Festival<br>Packages</h2></div>
-          <p>Accommodation, three meals per day, workshops, parties and performance access—organized in two clear festival stays. Prices are per person.</p>
+          <p>Choose a complete hotel package or arrange your own accommodation with the Full Pass. Prices are per person.</p>
         </div>
         <div class="package-grid">
           <article class="package-card reveal">
@@ -488,6 +492,18 @@ const renderers = {
         </div>
         <div class="deposit-banner reveal"><span>Deposit</span><strong>400 € · Non-refundable and non-transferable</strong></div>
         <p class="deposit-policy reveal">The deposit cannot be transferred to another individual or applied to future events. Once made, it is final and applies only to the specific event and participant for which it was intended.</p>
+
+        <section class="no-hotel-packages" aria-labelledby="no-hotel-title">
+          <div class="pricing-heading guest-heading reveal"><div><span class="pricing-overline">For participants arranging their own accommodation</span><h2 id="no-hotel-title">Prices<br>Without Hotel</h2></div><p>Festival access and optional performance or competition fees, clearly separated from accommodation.</p></div>
+          <article class="package-card no-hotel-package reveal">
+            <header class="package-head"><div><span>Hotel not included</span><h3>Full Pass</h3><small>Access to all workshops</small></div><strong>580 €</strong></header>
+            <div class="no-hotel-rates">
+              <div><span><strong>Performance fee (CD)</strong><small>One CD performance is free with the Full Pass with Hotel.</small></span><b>45 €</b></div>
+              <div><span><strong>Competition fee</strong><small>Per selected category.</small></span><b>45 €</b></div>
+              <div><span><strong>Live band performance fee</strong><small>Per gala show with live band.</small></span><b>45 €</b></div>
+            </div>
+          </article>
+        </section>
 
         <section class="guest-packages" aria-labelledby="guest-packages-title">
           <div class="pricing-heading guest-heading reveal"><div><span class="pricing-overline">Hotel only · Check in 3 August</span><h2 id="guest-packages-title">Guest<br>Packages</h2></div><p>For family members, friends or companions of festival participants. Guests share rooms with registered participants.</p></div>
@@ -776,6 +792,10 @@ if (page === 'registration') {
   const registrationSubmit = document.querySelector('[data-registration-submit]');
   const otherNights = document.querySelector('[data-other-nights]');
   const otherNightsInput = otherNights?.querySelector('input');
+  const festivalPassOptions = [...document.querySelectorAll('input[name="Festival pass"]')];
+  const hotelDetails = [...document.querySelectorAll('[data-hotel-details]')];
+  const passStatus = document.querySelector('[data-pass-status]');
+  const firstCdPrice = document.querySelector('[data-first-cd-price]');
   const packageOptions = [...document.querySelectorAll('input[name="Package length"]')];
   const roomOptions = [...document.querySelectorAll('input[name="Room type"]')];
   const competitionParticipation = [...document.querySelectorAll('input[name="Competition participation"]')];
@@ -825,21 +845,38 @@ if (page === 'registration') {
     });
   };
   const updateCostSummary = () => {
+    const festivalPass = selectedValue(festivalPassOptions);
+    const withHotel = festivalPass === 'Festival package with hotel';
+    const withoutHotel = festivalPass === 'Full Pass without hotel';
     const room = selectedValue(roomOptions);
     const nights = getRequestedNights();
     const lines = [];
     let total = 0;
-    const stayPrice = accommodationPrice(nights, room);
-    if (stayPrice) {
+    const stayPrice = withHotel ? accommodationPrice(nights, room) : null;
+    if (withoutHotel) {
+      lines.push(['Full Pass · accommodation not included', 580]);
+      total += 580;
+    } else if (stayPrice) {
       lines.push([`${nights}-night festival package · ${room}`, stayPrice]);
       total += stayPrice;
-    } else if (nights || room) {
+    } else if (withHotel && (nights || room)) {
       lines.push(['Accommodation', 'Price requires confirmation']);
+    } else if (!festivalPass) {
+      lines.push(['Festival pass', 'Select with or without hotel']);
     }
     if (selectedValue(galaParticipation) === 'I would like to perform in a gala show') {
       const selectedFormats = performanceFormats.filter(option => option.checked).map(option => option.value);
       const selectedAdditional = additionalPerformances.filter(option => option.checked).map(option => option.value);
-      if (selectedFormats.includes('CD / recorded music')) lines.push(['1st gala show · CD / recorded music', 0]);
+      if (selectedFormats.includes('CD / recorded music')) {
+        if (withHotel) {
+          lines.push(['1st gala show · CD / recorded music · included', 0]);
+        } else if (withoutHotel) {
+          lines.push(['1st gala show · CD / recorded music', 45]);
+          total += 45;
+        } else {
+          lines.push(['1st gala show · CD / recorded music', 'Select a festival pass']);
+        }
+      }
       if (selectedFormats.includes('Live band')) {
         lines.push(['1st gala show · Live band', 45]);
         total += 45;
@@ -868,6 +905,31 @@ if (page === 'registration') {
     costTotalInput.value = formatEuro(total);
     costBreakdownInput.value = breakdown;
   };
+  const syncFestivalPass = () => {
+    const festivalPass = selectedValue(festivalPassOptions);
+    const withHotel = festivalPass === 'Festival package with hotel';
+    hotelDetails.forEach(container => {
+      container.hidden = !withHotel;
+      container.querySelectorAll('input').forEach(input => {
+        if (!input.dataset.hotelRequired) input.dataset.hotelRequired = String(input.required);
+        input.disabled = !withHotel;
+        input.required = withHotel && input.dataset.hotelRequired === 'true';
+      });
+    });
+    if (festivalPass === 'Full Pass without hotel') {
+      passStatus.textContent = 'Full Pass without hotel selected · €580';
+      firstCdPrice.textContent = '€45 · accommodation not included';
+    } else if (withHotel) {
+      passStatus.textContent = 'Hotel package selected · choose stay and room type for the exact total';
+      firstCdPrice.textContent = '€0 · included with hotel package';
+    } else {
+      passStatus.textContent = 'Select a package to continue.';
+      firstCdPrice.textContent = '€0 with hotel · €45 without hotel';
+    }
+    syncOtherNights();
+    updateStayPrices();
+    updateCostSummary();
+  };
   const syncCompetitionCategories = () => {
     const isProfessional = competitionLevels.some(option => option.checked && option.value === 'Professional');
     professionalCategory.hidden = !isProfessional;
@@ -882,13 +944,15 @@ if (page === 'registration') {
     updateCostSummary();
   };
   const syncOtherNights = () => {
-    const showOtherNights = packageOptions.some(option => option.checked && option.value === 'Other');
+    const withHotel = selectedValue(festivalPassOptions) === 'Festival package with hotel';
+    const showOtherNights = withHotel && packageOptions.some(option => option.checked && option.value === 'Other');
     otherNights.hidden = !showOtherNights;
     otherNightsInput.required = showOtherNights;
     if (!showOtherNights) otherNightsInput.value = '';
     updateCostSummary();
   };
   packageOptions.forEach(option => option.addEventListener('change', syncOtherNights));
+  festivalPassOptions.forEach(option => option.addEventListener('change', syncFestivalPass));
   roomOptions.forEach(option => option.addEventListener('change', () => {
     updateStayPrices();
     updateCostSummary();
@@ -900,8 +964,7 @@ if (page === 'registration') {
   performanceFormats.forEach(option => option.addEventListener('change', updateCostSummary));
   additionalPerformances.forEach(option => option.addEventListener('change', updateCostSummary));
   otherNightsInput.addEventListener('input', updateCostSummary);
-  syncOtherNights();
-  updateStayPrices();
+  syncFestivalPass();
   syncCompetitionCategories();
   updateCostSummary();
 
