@@ -224,6 +224,7 @@ const heroLaurel = side => {
 };
 
 const soloDanceCategories = ['Raks Sharki', 'Folklore / Baladi / Shaabi', 'Show Dance / CD Drum Solo', 'Pop / Modern Oriental'];
+const professionalDanceCategories = [...soloDanceCategories, 'Live Drum Solo · By Carlos'];
 const groupDanceCategories = ['Egyptian Dances', 'Other Oriental Dances (Khaleej, Pop lyrical, Iraqi, Drum, Show dance…)'];
 
 const liveBandRepertoire = [
@@ -296,17 +297,18 @@ const registrationForm = () => `<section class="content-section registration-for
 
       <fieldset class="registration-step"><legend><span>04</span><strong>Gala performances</strong></legend>
         <div class="registration-choice-group"><span>Gala participation</span><div class="registration-options">${registrationOption('radio', 'Gala participation', 'I would like to perform in a gala show', 'I would like to perform in a gala show', true)}${registrationOption('radio', 'Gala participation', 'I do not plan to perform', 'I do not plan to perform')}</div></div>
-        <div class="registration-choice-group"><span>Performance format</span><div class="registration-options">${registrationOption('checkbox', 'Performance format', 'Live band', 'Live band — fee as listed in the 2027 price list')}${registrationOption('checkbox', 'Performance format', 'CD / recorded music', 'CD / recorded music — first performance, subject to festival rules')}</div></div>
+        <div class="registration-choice-group"><span>First gala show format</span><div class="registration-options">${registrationOption('checkbox', 'Performance format', 'Live band', 'Live band <small class="registration-option-price">€45</small>')}${registrationOption('checkbox', 'Performance format', 'CD / recorded music', 'CD / recorded music <small class="registration-option-price">€0</small>')}</div></div>
         <div class="registration-choice-group"><span>For the first performance, I will start</span><div class="registration-options">${registrationOption('radio', 'First performance start', 'On stage', 'On stage — I am on stage when the music starts')}${registrationOption('radio', 'First performance start', 'Off stage', 'Off stage — music starts before I enter')}</div></div>
-        <div class="registration-choice-group"><span>Additional performance <i>if available</i></span><div class="registration-options">${registrationOption('checkbox', 'Additional performance', 'Additional live band performance', 'Additional live band performance — fee in 2027 price list')}${registrationOption('checkbox', 'Additional performance', 'Additional CD performance', 'Additional CD performance — fee in 2027 price list')}</div></div>
+        <div class="registration-choice-group"><span>Second gala show <i>if available</i></span><div class="registration-options">${registrationOption('checkbox', 'Additional performance', 'Additional live band performance', 'Live band <small class="registration-option-price">€45</small>')}${registrationOption('checkbox', 'Additional performance', 'Additional CD performance', 'CD / recorded music <small class="registration-option-price">€45</small>')}</div></div>
         <div class="registration-choice-group"><span>For the additional performance, I will start</span><div class="registration-options">${registrationOption('radio', 'Additional performance start', 'On stage', 'On stage')}${registrationOption('radio', 'Additional performance start', 'Off stage', 'Off stage')}</div></div>
       </fieldset>
 
       <fieldset class="registration-step"><legend><span>05</span><strong>Competition</strong></legend>
         <div class="registration-choice-group"><span>Competition participation</span><div class="registration-options">${registrationOption('radio', 'Competition participation', 'I would like to take part', 'I would like to take part in the competition', true)}${registrationOption('radio', 'Competition participation', 'I do not plan to take part', 'I do not plan to take part')}</div></div>
         <div class="registration-choice-group"><span>Competition level</span><div class="registration-options four-options">${['Teens', 'Ladies', 'Semi-professional', 'Professional', 'Group'].map(value => registrationOption('checkbox', 'Competition level', value, value)).join('')}</div></div>
-        <div class="registration-choice-group"><span>Competition category or categories</span><div class="registration-options four-options">${['Raqs Sharqi', 'Folklore / Baladi / Shaabi', 'Pop / Modern Oriental', 'Drum Solo / Fusion', 'Live Band'].map(value => registrationOption('checkbox', 'Competition categories', value, value)).join('')}</div></div>
-        <p class="registration-step-note">Solo competition fee: €40. Group competition fee: €15 per person. Category eligibility is listed in the 2027 festival information.</p>
+        <div class="registration-choice-group"><span>Competition category or categories</span><div class="registration-options four-options">${['Raqs Sharqi', 'Folklore / Baladi / Shaabi', 'Pop / Modern Oriental', 'Drum Solo / Fusion', 'Live Band'].map(value => registrationOption('checkbox', 'Competition categories', value, `${value} <small class="registration-option-price">€45</small>`)).join('')}<label class="registration-option" data-professional-category hidden><input type="checkbox" name="Competition categories" value="Live Drum Solo — By Carlos"><span aria-hidden="true"></span><em>Live Drum Solo <small class="registration-option-by">By Carlos · Professionals only</small><small class="registration-option-price">€45</small></em></label></div></div>
+        <p class="registration-step-note">Competition fee: €45 per selected category. Select up to 5 categories, or all 6 in the Professional level. Category eligibility is listed in the 2027 festival information.</p>
+        <p class="registration-selection-status" data-category-status aria-live="polite">0 of 5 categories selected · €0</p>
         <aside class="registration-policy contaste-policy"><strong>One more required step for competitors</strong><p>Submitting this festival form does not complete competition registration. After sending it, visit Contaste.pro to register for the competition and upload your music file.</p><a class="registration-external-action" href="https://contaste.pro/participants.php" target="_blank" rel="noopener">Continue to Contaste.pro <span class="link-arrow link-arrow-forward" aria-hidden="true"></span></a>${registrationOption('checkbox', 'Contaste registration acknowledgement', 'Accepted', 'I understand that, if I compete, I must also register and upload my music on Contaste.pro.')}</aside>
       </fieldset>
 
@@ -327,7 +329,7 @@ const registrationForm = () => `<section class="content-section registration-for
         <p>I confirm that the information in this form is accurate. I understand that package, room and participation requests are subject to availability and confirmation, and that separate hotel or transport provider terms apply to services provided by them.</p>
         ${registrationOption('checkbox', 'Participant confirmation', 'Confirmed', 'I confirm and accept the statement above.', true)}
         <div class="registration-fields three-columns"><label><span>Participant full name</span><input type="text" name="Participant full name" autocomplete="name" required></label><label><span>Signature <i>type full name</i></span><input type="text" name="Signature" required></label><label><span>Date</span><input type="date" name="Confirmation date" required></label></div>
-        <section class="registration-cost-summary" data-cost-summary aria-live="polite"><header><div><span>Estimated booking total</span><h3>Your selections</h3></div><strong data-cost-total>€0</strong></header><div data-cost-lines><p>Select accommodation and participation options to calculate the current published costs.</p></div><small>Accommodation includes the €400 non-refundable deposit. Transfers are booked and paid directly to the provider and are not included. Unpriced performance requests remain subject to confirmation.</small></section>
+        <section class="registration-cost-summary" data-cost-summary aria-live="polite"><header><div><span>Estimated booking total</span><h3>Your selections</h3></div><strong data-cost-total>€0</strong></header><div data-cost-lines><p>Select accommodation and participation options to calculate the current published costs.</p></div><small>Accommodation includes the €400 non-refundable deposit. Transfers are booked and paid directly to the provider and are not included. All requests remain subject to availability and festival confirmation.</small></section>
         <input type="hidden" name="Estimated booking total" data-cost-total-input value="€0">
         <input type="hidden" name="Estimated cost breakdown" data-cost-breakdown-input value="No priced selections">
       </fieldset>
@@ -510,18 +512,18 @@ const renderers = {
     <section class="competition-rules-panel" id="rules-solo-panel" role="tabpanel" aria-labelledby="rules-solo-tab" data-rules-content="solo">
       <div class="rules-panel-intro reveal"><span>Solo format</span><h2>Six paths.<br>One stage.</h2><p>Choose the level and age category that matches your competition profile.</p></div>
       <div class="competition-rule-grid competition-rule-grid-primary">
-        ${competitionRuleCard({ title: 'Professional', subtitle: 'For Cairo By Night Queen / King', age: '+18', time: 'Music maximum 4 min', categories: soloDanceCategories, accent: 'blue' })}
-        ${competitionRuleCard({ title: 'Semi-Professional', subtitle: 'For Cairo By Night Princess', age: '+16', time: 'Music maximum 3 min', categories: soloDanceCategories, accent: 'red' })}
-        ${competitionRuleCard({ title: "Lady’s Category", subtitle: 'Open Level', age: '+35', time: 'Music maximum 4 min', categories: soloDanceCategories, accent: 'violet' })}
+        ${competitionRuleCard({ title: 'Professional', subtitle: 'For Cairo By Night Queen / King', age: '+18', time: 'Music maximum 4 min', categories: professionalDanceCategories, price: '45 € per category', accent: 'blue' })}
+        ${competitionRuleCard({ title: 'Semi-Professional', subtitle: 'For Cairo By Night Princess', age: '+16', time: 'Music maximum 3 min', categories: soloDanceCategories, price: '45 € per category', accent: 'red' })}
+        ${competitionRuleCard({ title: "Lady’s Category", subtitle: 'Open Level', age: '+35', time: 'Music maximum 4 min', categories: soloDanceCategories, price: '45 € per category', accent: 'violet' })}
       </div>
       <aside class="competition-policy choreography-policy reveal"><span>Queen category requirement</span><h3>Original choreography</h3><p>At the Cairo By Night Queen Category: At least one of four choreographies presented in must be created and choreographed by the performer. Choreographies created by another choreographer may be included for the remaining routines.</p></aside>
       <div class="competition-rule-grid competition-rule-grid-secondary">
-        ${competitionRuleCard({ title: 'Teens', subtitle: 'Youth category', age: '+11', time: 'Music maximum 3 min', categories: soloDanceCategories, accent: 'red' })}
-        ${competitionRuleCard({ title: 'Children', subtitle: 'Youth category', age: '+6', time: 'Music maximum 3 min', categories: soloDanceCategories, accent: 'blue' })}
+        ${competitionRuleCard({ title: 'Teens', subtitle: 'Youth category', age: '+11', time: 'Music maximum 3 min', categories: soloDanceCategories, price: '45 € per category', accent: 'red' })}
+        ${competitionRuleCard({ title: 'Children', subtitle: 'Youth category', age: '+6', time: 'Music maximum 3 min', categories: soloDanceCategories, price: '45 € per category', accent: 'blue' })}
         ${competitionRuleCard({ title: 'Live Band Competition', subtitle: 'All ages', age: 'All ages', time: 'Music from 2 to 3 min', categories: ['Professionals', 'Semi-Professionals', 'Teens / Pre-Professionals'], accent: 'gold' })}
       </div>
       <aside class="competition-policy safeguarding-policy reveal"><span>Safeguarding note</span><h3>Teens and Children categories</h3><p>For the Teens and Children Categories, all performances must be strictly age appropriate. Costumes, choreography, music selection, makeup, styling, and stage presentation must not sexualize or portray minors in an adult manner. Parents or legal guardians and coaches are fully responsible for ensuring each participant’s overall presentation is appropriate for a youth competition, and by registering they confirm their acceptance of this responsibility.</p></aside>
-      <div class="competition-fee reveal"><span>Solo competition fee</span><strong>40 €</strong></div>
+      <div class="competition-fee reveal"><span>Solo competition fee</span><strong>45 € per category</strong></div>
     </section>
     <section class="competition-rules-panel" id="rules-group-panel" role="tabpanel" aria-labelledby="rules-group-tab" data-rules-content="group" hidden>
       <div class="rules-panel-intro reveal"><span>Group format</span><h2>Dance<br>together.</h2><p>Three group divisions with the same category structure and a fee calculated per participant.</p></div>
@@ -778,6 +780,12 @@ if (page === 'registration') {
   const roomOptions = [...document.querySelectorAll('input[name="Room type"]')];
   const competitionParticipation = [...document.querySelectorAll('input[name="Competition participation"]')];
   const competitionLevels = [...document.querySelectorAll('input[name="Competition level"]')];
+  const competitionCategories = [...document.querySelectorAll('input[name="Competition categories"]')];
+  const professionalCategory = document.querySelector('[data-professional-category]');
+  const categoryStatus = document.querySelector('[data-category-status]');
+  const galaParticipation = [...document.querySelectorAll('input[name="Gala participation"]')];
+  const performanceFormats = [...document.querySelectorAll('input[name="Performance format"]')];
+  const additionalPerformances = [...document.querySelectorAll('input[name="Additional performance"]')];
   const costTotal = document.querySelector('[data-cost-total]');
   const costLines = document.querySelector('[data-cost-lines]');
   const costTotalInput = document.querySelector('[data-cost-total-input]');
@@ -828,25 +836,50 @@ if (page === 'registration') {
     } else if (nights || room) {
       lines.push(['Accommodation', 'Price requires confirmation']);
     }
+    if (selectedValue(galaParticipation) === 'I would like to perform in a gala show') {
+      const selectedFormats = performanceFormats.filter(option => option.checked).map(option => option.value);
+      const selectedAdditional = additionalPerformances.filter(option => option.checked).map(option => option.value);
+      if (selectedFormats.includes('CD / recorded music')) lines.push(['1st gala show · CD / recorded music', 0]);
+      if (selectedFormats.includes('Live band')) {
+        lines.push(['1st gala show · Live band', 45]);
+        total += 45;
+      }
+      selectedAdditional.forEach(performance => {
+        lines.push([`2nd gala show · ${performance.includes('live band') ? 'Live band' : 'CD / recorded music'}`, 45]);
+        total += 45;
+      });
+      if (!selectedFormats.length && !selectedAdditional.length) lines.push(['Gala performance', 'Select CD or live band']);
+    }
     if (selectedValue(competitionParticipation) === 'I would like to take part') {
       const selectedLevels = competitionLevels.filter(option => option.checked).map(option => option.value);
-      const hasGroup = selectedLevels.includes('Group');
-      const hasSolo = selectedLevels.some(level => level !== 'Group');
-      if (hasSolo) {
-        lines.push(['Solo competition', 40]);
-        total += 40;
+      const selectedCategoryCount = competitionCategories.filter(option => option.checked).length;
+      if (!selectedLevels.length) lines.push(['Competition level', 'Select at least one level']);
+      if (selectedCategoryCount) {
+        const competitionTotal = selectedCategoryCount * 45;
+        lines.push([`Competition categories · ${selectedCategoryCount} × €45`, competitionTotal]);
+        total += competitionTotal;
+      } else {
+        lines.push(['Competition categories', 'Select at least one category']);
       }
-      if (hasGroup) {
-        lines.push(['Group competition · per person', 15]);
-        total += 15;
-      }
-      if (!selectedLevels.length) lines.push(['Competition', 'Select a level to calculate']);
     }
     costTotal.textContent = formatEuro(total);
     costLines.innerHTML = lines.length ? lines.map(([label, value]) => `<p><span>${label}</span><strong>${typeof value === 'number' ? formatEuro(value) : value}</strong></p>`).join('') : '<p>Select accommodation and participation options to calculate the current published costs.</p>';
     const breakdown = lines.length ? lines.map(([label, value]) => `${label}: ${typeof value === 'number' ? formatEuro(value) : value}`).join(' | ') : 'No priced selections';
     costTotalInput.value = formatEuro(total);
     costBreakdownInput.value = breakdown;
+  };
+  const syncCompetitionCategories = () => {
+    const isProfessional = competitionLevels.some(option => option.checked && option.value === 'Professional');
+    professionalCategory.hidden = !isProfessional;
+    const professionalInput = professionalCategory.querySelector('input');
+    if (!isProfessional) professionalInput.checked = false;
+    const limit = isProfessional ? 6 : 5;
+    const selectedCount = competitionCategories.filter(option => option.checked).length;
+    competitionCategories.forEach(option => {
+      option.disabled = !option.checked && selectedCount >= limit;
+    });
+    categoryStatus.textContent = `${selectedCount} of ${limit} categories selected · ${formatEuro(selectedCount * 45)}`;
+    updateCostSummary();
   };
   const syncOtherNights = () => {
     const showOtherNights = packageOptions.some(option => option.checked && option.value === 'Other');
@@ -861,10 +894,15 @@ if (page === 'registration') {
     updateCostSummary();
   }));
   competitionParticipation.forEach(option => option.addEventListener('change', updateCostSummary));
-  competitionLevels.forEach(option => option.addEventListener('change', updateCostSummary));
+  competitionLevels.forEach(option => option.addEventListener('change', syncCompetitionCategories));
+  competitionCategories.forEach(option => option.addEventListener('change', syncCompetitionCategories));
+  galaParticipation.forEach(option => option.addEventListener('change', updateCostSummary));
+  performanceFormats.forEach(option => option.addEventListener('change', updateCostSummary));
+  additionalPerformances.forEach(option => option.addEventListener('change', updateCostSummary));
   otherNightsInput.addEventListener('input', updateCostSummary);
   syncOtherNights();
   updateStayPrices();
+  syncCompetitionCategories();
   updateCostSummary();
 
   const submitted = new URLSearchParams(window.location.search).get('submitted') === 'true';

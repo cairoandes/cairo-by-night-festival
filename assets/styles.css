@@ -129,6 +129,11 @@
     linear-gradient(120deg,rgba(255,255,255,.72),transparent 38%),
     linear-gradient(145deg,#fffaf0,#f2e5d2 58%,#e7d1b7);
 }
+
+.registration-option-price{display:block;margin-top:.32rem;color:#efc36b;font-size:.68rem;font-weight:700;letter-spacing:.06em}
+.registration-option-by{display:block;margin-top:.18rem;color:#7fcbd5;font-size:.58rem;letter-spacing:.04em}
+.registration-selection-status{margin:1rem 0 0;padding:.8rem 1rem;border-left:2px solid #e5b55a;background:rgba(229,181,90,.06);color:#d9c39c;font-size:.68rem;letter-spacing:.04em}
+.registration-option:has(input:disabled){cursor:not-allowed;opacity:.42}
 .festival-announcement::before{width:58%;height:88%;left:-34%;bottom:-40%}
 .festival-announcement::after{width:48%;height:70%;right:-28%;top:-34%}
 .announcement-aura{inset:8% 3% 8% 42%;animation:announcementAura 7s ease-in-out infinite alternate}
